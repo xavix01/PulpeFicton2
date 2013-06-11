@@ -11,12 +11,12 @@ import beans.Client;
  *
  * @author xavix
  */
-public class CeationClient {
+public class CreationClient {
 
     Client client;
     DAOFactory daoFactory;
 
-    public CeationClient(String nomClient,String adresseClient, String telephoneClient, String contactClient) {
+    public CreationClient(String nomClient,String adresseClient, String telephoneClient, String contactClient) {
         daoFactory=new DAOFactory();// Préparation de la connexion à la
         DAOClient daoClient=daoFactory.getDAOClient();// base de donnée
         daoClient = daoFactory.getDAOClient(); 

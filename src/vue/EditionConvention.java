@@ -1,9 +1,6 @@
 package vue;
-import DAO.DAOFactory;
-import DAO.DAOParticipe;
-import DAO.DAOProjet;
 import beans.Client;
-import beans.Projet;
+
 import classes.CreationPdfConvention;
 import classes.CreationProjet;
 import classes.RechercherProjet;

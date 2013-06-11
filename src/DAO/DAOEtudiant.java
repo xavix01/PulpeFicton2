@@ -4,8 +4,8 @@
  */
 package DAO;
 
-
 import beans.Etudiant;
+import beans.Frais;
 import beans.Projet;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -45,12 +45,13 @@ public class DAOEtudiant {
         }
         return listeEtudiant;
     }
-    public Etudiant getUnEtudiant(int idEtu){
-        Etudiant etudiant=new Etudiant();
+
+    public Etudiant getUnEtudiant(int idEtu) {
+        Etudiant etudiant = new Etudiant();
         try {
             Connection connection = factory.getConnection();
             Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery("SELECT * FROM Etudiant where idEtudiant="+idEtu+";");
+            ResultSet result = statement.executeQuery("SELECT * FROM Etudiant where idEtudiant=" + idEtu + ";");
             while (result.next()) {
                 etudiant.setIdEtudiant(result.getInt("idEtudiant"));
                 etudiant.setNomEtudiant(result.getString("nomEtudiant"));
@@ -63,8 +64,7 @@ public class DAOEtudiant {
         }
         return etudiant;
     }
-    
-    
+
     public Vector getVectorEtudiant() {
         Vector listeEtudiant2D = new Vector<>();
         try {
@@ -72,7 +72,7 @@ public class DAOEtudiant {
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery("SELECT * FROM Etudiant");
             while (result.next()) {
-                Vector listeEtudiant1D=new Vector();
+                Vector listeEtudiant1D = new Vector();
                 listeEtudiant1D.add(result.getInt("idEtudiant"));
                 listeEtudiant1D.add(result.getString("nomEtudiant"));
                 listeEtudiant2D.add(listeEtudiant1D);
@@ -82,14 +82,13 @@ public class DAOEtudiant {
         }
         return listeEtudiant2D;
     }
-    
-    public Vector getEtudiantProjet(Projet projet)
-    {
-        Vector vector2D=new Vector();
+
+    public Vector getEtudiantProjet(Projet projet) {
+        Vector vector2D = new Vector();
         try {
             Connection connection = factory.getConnection();
             Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery("SELECT * FROM Etudiant e join Participe p on e.idEtudiant=p.idEtudiant where idProjet="+projet.getId_projet()+";");
+            ResultSet result = statement.executeQuery("SELECT * FROM Etudiant e join Participe p on e.idEtudiant=p.idEtudiant where idProjet=" + projet.getId_projet() + ";");
             while (result.next()) {
                 Vector vector1D = new Vector<>();
                 vector1D.add(result.getInt("idEtudiant"));
@@ -97,14 +96,32 @@ public class DAOEtudiant {
                 vector1D.add(result.getString("prenomEtudiant"));
                 vector1D.add(result.getString("dateNaissanceEtudiant"));
                 vector1D.add(result.getString("adresseEtudiant"));
-                
+
                 vector2D.add(vector1D);
             }
-            
-        } catch (Exception e) {
+
+        } catch (SQLException e) {
+            throw new DAO.DAOException(e.getSQLState());
         }
         return vector2D;
-        
+
     }
-    
+
+    public void addFees(Frais frais) {
+        try {
+            Connection connection = factory.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM Etudiant where nomEtudiant='" + frais.getNomEtudiant() + "'");
+            result.next();
+            int idEtu = result.getInt("idEtudiant");
+            String insert = "INSERT INTO Frais (`idProjet`,`idEtudiant`,`jourFrais`,`moisFrais`,`anneeFrais`,`montantSejour`,`MontantDeplacement`,`montantAutres`)"
+                    + "VALUES (" + frais.getIdProjet() + "," + idEtu + "," + frais.getJour() + ",'" + frais.getMois() + "',"+frais.getAnnee()+"," + frais.getMontantSejour()
+                    + "," + frais.getMontantDeplacement() + "," + frais.getMontantAutres() + ")";
+            statement.executeUpdate(insert);
+
+        } catch (SQLException e) {
+            throw new DAO.DAOException(e.getSQLState());
+        }
+
+    }
 }

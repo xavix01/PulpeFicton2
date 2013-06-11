@@ -1,6 +1,6 @@
 package vue;
 
-import classes.CeationClient;
+import classes.CreationClient;
 import javax.swing.JOptionPane;
 
 /*
@@ -174,7 +174,7 @@ public class NouveauClient extends javax.swing.JFrame {
     private void validerCreationClient(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerCreationClient
         JOptionPane res = null;
         try {
-            new CeationClient(nomClient.getText(), adresseClient.getText(), telephoneClient.getText(), contactClient.getText());
+            new CreationClient(nomClient.getText(), adresseClient.getText(), telephoneClient.getText(), contactClient.getText());
             res.showMessageDialog(this, "Client enregistré avec succès ");
         } catch (Exception e) {
             res.showMessageDialog(this, "Erreur d'enregistrement");
