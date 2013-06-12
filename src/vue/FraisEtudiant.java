@@ -1,6 +1,7 @@
 package vue;
 
 import classes.ClasseFraisEtudiant;
+import classes.CreationFicheRemboursement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -165,8 +166,11 @@ public class FraisEtudiant extends javax.swing.JFrame {
         String message="Cette étape validera la Fiche de rembourssement de frais pour le mois "
                 +listeMois.getSelectedItem().toString()+" de l'année "+listeAnnee.getSelectedItem().toString()+". Voulez-vous continuer?";
         int reply=res.showConfirmDialog(null,message,title, JOptionPane.YES_NO_OPTION);
+        String etudiant = listeEtu.getSelectedItem().toString();
+        String mois = listeMois.getSelectedItem().toString();
+        int annee= Integer.parseInt(listeAnnee.getSelectedItem().toString());
         if(reply==JOptionPane.YES_OPTION){
-            
+            CreationFicheRemboursement ficheRemboursement = new CreationFicheRemboursement(etudiant,annee,mois);
         }
     }//GEN-LAST:event_editRF
 
