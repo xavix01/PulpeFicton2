@@ -43,7 +43,7 @@ public class CreationFicheRemboursement {
     Frais frais;
     DAOEtudiant daoEtudiant;
     DAOFactory daof;
-
+/*
     public CreationFicheRemboursement(String nomEtudiant, int annee, String mois) {
         frais = new Frais();
         frais.setNomEtudiant(nomEtudiant);
@@ -206,7 +206,7 @@ public class CreationFicheRemboursement {
         document.add(preface);
 
     }
-
+*/
     private static void addEmptyLine(Paragraph paragraph, int number) {
         for (int i = 0; i < number; i++) {
             paragraph.add(new Paragraph(" "));
