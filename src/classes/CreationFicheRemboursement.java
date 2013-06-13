@@ -43,9 +43,9 @@ public class CreationFicheRemboursement {
     Frais frais;
     DAOEtudiant daoEtudiant;
     DAOFactory daof;
-/*
+
     public CreationFicheRemboursement(String nomEtudiant, int annee, String mois) {
-        frais = new Frais();
+/*        frais = new Frais();
         frais.setNomEtudiant(nomEtudiant);
         frais.setAnnee(annee);
         frais.setMois(mois);
@@ -67,9 +67,9 @@ public class CreationFicheRemboursement {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+     */   
     }
-
+/*
     private static void addMetaData(Document document) {
         document.addTitle("Convention");
         document.addSubject("Using iText");
