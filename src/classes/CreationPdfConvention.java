@@ -5,16 +5,12 @@
 package classes;
 
 import DAO.DAOFactory;
-import DAO.DAOParticipe;
 import DAO.DAOProjet;
 import beans.Projet;
 import java.io.FileOutputStream;
 import java.util.Date;
 
-import com.itextpdf.text.Anchor;
-import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chapter;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -23,7 +19,6 @@ import com.itextpdf.text.List;
 import com.itextpdf.text.ListItem;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
-import com.itextpdf.text.Section;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -48,7 +43,10 @@ public class CreationPdfConvention {
     private DAOFactory dAOFactory;
     DAOProjet daoProjet;
     Projet projet;
-    
+    /**
+     * Permet de créer un pdf de la convention avec toutes les informations necessaires 
+     * @param idProjet 
+     */
     public CreationPdfConvention(int idProjet) {
         
         projet = new Projet();
@@ -72,7 +70,10 @@ public class CreationPdfConvention {
         }
         
     }
-    
+    /**
+     * Ajoute les meta données au pdf
+     * @param document 
+     */
     private static void addMetaData(Document document) {
         document.addTitle("Convention");
         document.addSubject("Using iText");
@@ -81,6 +82,13 @@ public class CreationPdfConvention {
         document.addCreator("Lars Vogel");
     }
     
+    /**
+     * Ajoute le tableau avec le nom du responsable du projet, les etudiants de ce projet
+     * et le nombre de jour qu'il travaille
+     * @param document
+     * @param projet
+     * @throws DocumentException 
+     */
     private static void ajouterTableau(Document document, Projet projet) throws DocumentException {
         Vector v = new Vector<>();
         v = projet.getListeEtudiantIdNom();
@@ -135,7 +143,12 @@ public class CreationPdfConvention {
         
         document.add(table);
     }
-    
+    /**
+     * Ajoute au pdf, le titre , la date, le projet concerné, le numero de convention
+     * @param document
+     * @param pro
+     * @throws DocumentException 
+     */
     private static void addTitlePage(Document document, Projet pro)
             throws DocumentException {
         Paragraph preface = new Paragraph();

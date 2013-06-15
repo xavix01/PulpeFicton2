@@ -24,8 +24,6 @@ public class Client {
         this.idClient = idClient;
     }
 
-    
-
     public String getNom_client() {
         return nomClient;
     }

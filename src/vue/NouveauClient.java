@@ -168,9 +168,12 @@ public class NouveauClient extends javax.swing.JFrame {
         this.dispose();     //fermeture de la fenetre pour un retour au menu principale
     }//GEN-LAST:event_retourMenu
 
-    
-    // quand on presse le bouton "Valider" on transmet, les informations
-    // entrées dans les champs, à la classe CreationClient du package classes
+    /**
+     * quand on presse le bouton "Valider" on transmet, les informations entrées
+     * dans les champs, à la classe CreationClient du package classes
+     *
+     * @param evt
+     */
     private void validerCreationClient(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerCreationClient
         JOptionPane res = null;
         try {
@@ -179,12 +182,17 @@ public class NouveauClient extends javax.swing.JFrame {
         } catch (Exception e) {
             res.showMessageDialog(this, "Erreur d'enregistrement");
         }
-        
-    }//GEN-LAST:event_validerCreationClient
 
+    }//GEN-LAST:event_validerCreationClient
+    /**
+     * si la touche pressé n'est pas un caratère numérique on ne le prend pas en
+     * compte (ne s'affiche pas)
+     *
+     * @param evt
+     */
     private void keyListenreTel(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_keyListenreTel
-        char t = evt.getKeyChar();      // si la touche pressé n'est pas un caratère numérique
-        if (!Character.isDigit(t)) {    // on ne le prend pas en compte (ne s'affiche pas)
+        char t = evt.getKeyChar();
+        if (!Character.isDigit(t)) {
             evt.consume();
         }
     }//GEN-LAST:event_keyListenreTel
@@ -207,6 +215,10 @@ public class NouveauClient extends javax.swing.JFrame {
 
     // Cette Partie permet de vérifier si les tous les champs sont remplies
     // si oui on active le bouton "Valider" sinon on le désactive
+    /**
+     * Permet de vérifier si les tous les champs sont remplies
+     * si oui on active le bouton "Valider" sinon on le désactive
+     */
     private void verifBouton() {
         if ((!nomClient.getText().isEmpty() && !adresseClient.getText().isEmpty()
                 && !telephoneClient.getText().isEmpty() && !contactClient.getText().isEmpty())) {

@@ -28,6 +28,12 @@ public class DAOEtudiant {
         this.factory = factory;
     }
 
+    /**
+     *
+     * @return Vector<Etudiant>
+     * Recherche de tous les Etudiants (Infos détaillé sur cet étudiant) sur la
+     * Bdd.
+     */
     public Vector getEtudiant() {
         Vector listeEtudiant = new Vector<>();
         try {
@@ -51,12 +57,18 @@ public class DAOEtudiant {
         return listeEtudiant;
     }
 
-    public Etudiant getUnEtudiant(int idEtu) {
-        Etudiant etudiant = new Etudiant();
+    /**
+     *
+     * @param etudiant
+     *
+     * L'étudiant passé en paramètre contient uniquement l'idEtudiant. Recherche
+     * dans la base des informations sur cet etudiant.
+     */
+    public void getUnEtudiant(Etudiant etudiant) {
         try {
             Connection connection = factory.getConnection();
             Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery("SELECT * FROM Etudiant where idEtudiant=" + idEtu + ";");
+            ResultSet result = statement.executeQuery("SELECT * FROM Etudiant where idEtudiant=" + etudiant.getIdEtudiant() + ";");
             while (result.next()) {
                 etudiant.setIdEtudiant(result.getInt("idEtudiant"));
                 etudiant.setNomEtudiant(result.getString("nomEtudiant"));
@@ -69,9 +81,13 @@ public class DAOEtudiant {
         } catch (SQLException e) {
             throw new DAO.DAOException(e.getSQLState());
         }
-        return etudiant;
     }
 
+    /**
+     *
+     * @return Vector<Vetor>
+     * Recupère seulement le nom et l'id de tout les étudiants.
+     */
     public Vector getVectorEtudiant() {
         Vector listeEtudiant2D = new Vector<>();
         try {
@@ -92,6 +108,13 @@ public class DAOEtudiant {
         return listeEtudiant2D;
     }
 
+    /**
+     *
+     * @param projet
+     * @return Vector <Vector>
+     *
+     * Informations détaillées de tous les Etudiants d'un projet donné
+     */
     public Vector getEtudiantProjet(Projet projet) {
         Vector vector2D = new Vector();
         try {
@@ -118,6 +141,10 @@ public class DAOEtudiant {
 
     }
 
+    /**
+     *
+     * @param frais Insertion de nouveau frais dans la table frais.
+     */
     public void addFees(Frais frais) {
         try {
             Connection connection = factory.getConnection();
@@ -137,6 +164,15 @@ public class DAOEtudiant {
 
     }
 
+    /**
+     *
+     * @param frais
+     * @return Vector<Vector>
+     * 
+     * La classe frais passé en paramètre contient uniquement le mois, l'année et l'id de 
+     * l'étudiant. Une liste de tous les frais pour cet etudiant ayant ces date.
+     * une nouvelle fiche de remboursement est inséré.
+     */
     public Vector searchExpenses(Frais frais) {
         Vector vectorEtu = new Vector();
         Date udate = new Date();

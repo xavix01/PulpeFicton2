@@ -37,9 +37,9 @@ public class ChoixEquipe extends javax.swing.JFrame {
 
         Vector v = new Vector<>();
         Vector titres = new Vector();
-        titres.add("Numero etudiant");
+        titres.add("N° etudiant");
         titres.add("Nom Etudiant");
-        titres.add("Nombre d'heure sur ce projet");
+        titres.add("Nbre jour sur ce projet");
         tableEtudiant.setModel(new DefaultTableModel(selectEquipe.rechercheEtudiant(), titres));
         tableEtudiantSelectionner.setModel(new DefaultTableModel(v, titres));
 
@@ -189,20 +189,21 @@ public class ChoixEquipe extends javax.swing.JFrame {
                                 .addComponent(jLabel1))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(idProjetSelec, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton1)
-                                    .addComponent(jButton2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButton2))))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(idProjetSelec, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(12, 12, 12)
-                                        .addComponent(jButton3))))))
+                                        .addGap(42, 42, 42)
+                                        .addComponent(jButton3))))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,7 +230,7 @@ public class ChoixEquipe extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nomResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(idResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(211, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,11 +273,23 @@ public class ChoixEquipe extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Permet de fermer la fenetre
+     *
+     * @param evt
+     */
     private void retourMenu(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retourMenu
 
         this.dispose();
     }//GEN-LAST:event_retourMenu
-
+    /**
+     * récupère les informations contenue dans le jtextField rechercheProjetT
+     * transmet ensuite cet info à la classe rechercheProjet de la classe
+     * selectEquipe Une liste est renvoyé et est affiché dans le jtable
+     * listeDeProjet
+     *
+     * @param evt
+     */
     private void rechercheProjet(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rechercheProjet
         String nomProjetRecep = rechercheProjetT.getText();
         if (!nomProjetRecep.isEmpty()) {
@@ -284,20 +297,25 @@ public class ChoixEquipe extends javax.swing.JFrame {
 
             liste = selectEquipe.rechercheProjet(nomProjetRecep);
             Vector titres = new Vector();
-            titres.add("Numéro de projet");
+            titres.add("N° de projet");
             titres.add("Nom du projet");
             titres.add("Date fin projet");
             titres.add("Duree projet");
-            titres.add("Prix journée");
+            titres.add("Prix/jour");
 
             listeDeProjet.setModel(new DefaultTableModel(
                     liste,
                     titres));
         }
-
-
     }//GEN-LAST:event_rechercheProjet
-
+    /**
+     * récupère l'id du projet selectionné dans la jtable listeProjet puis
+     * l'affiche dans le label idProjetSelec Enregistrement du nombre de jour
+     * total de travail sur ce projet Si le projet à déja une equipe, alors les
+     * bouton sont desactivé, sinon ont les active
+     *
+     * @param evt
+     */
     private void afficheProjetSelectionne(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheProjetSelectionne
         int ligneSelectionne = listeDeProjet.getSelectedRow();
         idProjetSelectionne = listeDeProjet.getValueAt(ligneSelectionne, 0).toString();
@@ -313,11 +331,16 @@ public class ChoixEquipe extends javax.swing.JFrame {
             jButton3.setEnabled(true);
         }
     }//GEN-LAST:event_afficheProjetSelectionne
-
+    /**
+     * On récupère les informations de la ligne selectionné dans le jTable
+     * tableEtudiant et on les transmet à la jtable tableEtudiantSelectionner
+     * avec le nombre de jour affecté
+     *
+     * @param evt
+     */
     private void ajouteEtudiant(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajouteEtudiant
-
         JOptionPane res = null;
-        String reponse=null;
+        String reponse = null;
         int nombreEntre;
         boolean temp = true;
         Vector v = new Vector();
@@ -326,17 +349,18 @@ public class ChoixEquipe extends javax.swing.JFrame {
         int idEtudiant = (int) tableEtudiant.getValueAt(ligneSelectionne, 0);
         nombreEntre = nombreH + 1;
         while (nombreEntre > nombreH) {
-            reponse = res.showInputDialog(this, "Entrer le nombre de jour travaillé pour Mr " + nomEtudiant, "SAISIE NOMBRE HEURES", javax.swing.JOptionPane.PLAIN_MESSAGE);
+            reponse = res.showInputDialog(this, "Entrer le nombre de jour travaillé pour Mr "
+                    + nomEtudiant, "SAISIE NOMBRE HEURES", javax.swing.JOptionPane.PLAIN_MESSAGE);
             if (reponse != null) {
                 try {
                     nombreEntre = Integer.parseInt(reponse);
                     if (nombreEntre > nombreH) {
-                        res.showMessageDialog(this, "Il reste " + nombreH + " heures à affecter à ce projet, la valeur que vous avez entré est supérieure. ");
+                        res.showMessageDialog(this, "Il reste " + nombreH + " heures à affecter "
+                                + "à ce projet, la valeur que vous avez entré est supérieure. ");
                     }
                 } catch (Exception e) {
                     res.showMessageDialog(this, "Vous avez entré un caractère invalide ");
                 }
-
             }
         }
         if (reponse != null) {
@@ -356,11 +380,14 @@ public class ChoixEquipe extends javax.swing.JFrame {
                 jButton1.setEnabled(false);
             }
         }
-
-
-
     }//GEN-LAST:event_ajouteEtudiant
-
+    /**
+     * On récupère les informations de la ligne selectionné dans le jTable
+     * tableEtudiantSelectionner et on les transmet à la jtable tableEtudiant en
+     * retirant le nombre de jour affecté
+     *
+     * @param evt
+     */
     private void retirerEtudiant(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retirerEtudiant
 
         int ligneSelectionne = tableEtudiantSelectionner.getSelectedRow();
@@ -389,7 +416,12 @@ public class ChoixEquipe extends javax.swing.JFrame {
         jButton1.setEnabled(true);
 
     }//GEN-LAST:event_retirerEtudiant
-
+    /**
+     * On récupère l'idEtudiant de la ligne selectionné et on l'affiche dans le
+     * label idResponsable
+     *
+     * @param evt
+     */
     private void selectionResponsable(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectionResponsable
         int ligneSelectionne = tableEtudiantSelectionner.getSelectedRow();
         String nomEtudiant = (String) tableEtudiantSelectionner.getValueAt(ligneSelectionne, 1);
@@ -398,14 +430,20 @@ public class ChoixEquipe extends javax.swing.JFrame {
         idResponsable.setText(String.valueOf(idEtudiant));
         validerChoixEquipe.setEnabled(true);
     }//GEN-LAST:event_selectionResponsable
-
+    /**
+     * Verification du nombre de jour affecté par rapport au nombre de jour
+     * total du projet message d'erreur si cela ne corespond pas, transmission
+     * des données à la méthode ajoutEquipe de la class CreationProjet
+     *
+     * @param evt
+     */
     private void valider(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valider
 
 
         JOptionPane res = null;
         boolean reponse = true;
         if (nombreH != 0) {
-            res.showMessageDialog(null, "Il reste " + nombreH + " heures à affecter au projet, merci d'ajouter ou de modifier un autre etudiant.");
+            res.showMessageDialog(null, "Il reste " + nombreH + " jour à affecter au projet, merci d'ajouter ou de modifier un autre etudiant.");
         } else {
             CreationProjet creationProjet = new CreationProjet();
             reponse = creationProjet.ajoutEquipe(tableEtudiantSelectionner.getModel(), idResponsable.getText(), idProjetSelec.getText());

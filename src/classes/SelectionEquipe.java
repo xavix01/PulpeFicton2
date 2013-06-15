@@ -25,6 +25,11 @@ public class SelectionEquipe {
         projet = new Projet();
     }
 
+    /**
+     * fait appel à la DAO Etudiant pour avoir une liste d'etudiant
+     *
+     * @return Vector<Vector>
+     */
     public Vector rechercheEtudiant() {
 
         DAOEtudiant daoEtudiant = dAOFactory.getDAOEtudiant();
@@ -33,6 +38,13 @@ public class SelectionEquipe {
         return vector2D;
     }
 
+    /**
+     * Enregistre les informations passé en paramètre dans un bean Projet puis
+     * les transmet à la DAOProjet. 
+     *
+     * @param nomProjetRecep
+     * @return Vector<Vector>
+     */
     public Vector rechercheProjet(String nomProjetRecep) {
 
         DAOProjet daoProjet = dAOFactory.getDAOProjet();

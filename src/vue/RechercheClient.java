@@ -176,12 +176,19 @@ public class RechercheClient extends javax.swing.JDialog {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    /**
+     * envoi à la méthode listeClientRecherhe de la classe RechercherClient, la
+     * valeur de champs entré par l'utilisateur on affiche le résultat dans la
+     * jTable affichageRechercheClient
+     *
+     * @param evt
+     */
     private void boutonRecherche(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonRecherche
         //récupération des champs entrés numéro client et Nom client
         Vector vector2D = new Vector();
         RechercherClient rechercheCli = new RechercherClient();
-        vector2D = rechercheCli.listeClientRecherhe(numClientRecherche.getText(), nomClientRecherche.getText());
+        vector2D = rechercheCli.listeClientRecherhe(numClientRecherche.getText(),
+                nomClientRecherche.getText());
 
         Vector columnNames = new Vector();
         columnNames.add("Numéro de client");
@@ -193,14 +200,19 @@ public class RechercheClient extends javax.swing.JDialog {
                 vector2D,
                 columnNames));
     }//GEN-LAST:event_boutonRecherche
-
+    /**
+     * On récupère l'id client de la ligne selectionné puis on l'affiche dans le
+     * label afficheIdDuClientSelectionne
+     *
+     * @param evt
+     */
     private void selectionClient(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectionClient
         int ligneSelectionne = affichageRechercheClient.getSelectedRow();
         String idClientSelectionne = (String) affichageRechercheClient.getValueAt(ligneSelectionne, 0);
         afficheIdDuClientSelectionne.setText(idClientSelectionne);
-        
-        Integer toto=Integer.parseInt(idClientSelectionne);
-        
+
+        Integer toto = Integer.parseInt(idClientSelectionne);
+
         client.setId_client(toto);
 
 
@@ -209,7 +221,10 @@ public class RechercheClient extends javax.swing.JDialog {
     private void valid(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valid
         this.dispose();
     }//GEN-LAST:event_valid
-
+/**
+ * Si le caractère entré n'est pas numérique, alors on ne fait rien (ne s'affiche pas)
+ * @param evt 
+ */
     private void keytypeId(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_keytypeId
         char t = evt.getKeyChar();
         if (!Character.isDigit(t)) {

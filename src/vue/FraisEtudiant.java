@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 public class FraisEtudiant extends javax.swing.JFrame {
 
     /**
-     * Creates new form FraisEtudiant
+     *
      */
     public FraisEtudiant() {
         initComponents();
@@ -36,7 +36,7 @@ public class FraisEtudiant extends javax.swing.JFrame {
         }
         listeAnnee.setModel(modelAnnee);
         ClasseFraisEtudiant classFrais = new ClasseFraisEtudiant();
-        modelEtu=classFrais.recupereListeEtu();
+        modelEtu = classFrais.recupereListeEtu();
         listeEtu.setModel(modelEtu);
     }
 
@@ -146,11 +146,17 @@ public class FraisEtudiant extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Envoi le nom du de l'etudiant, le mois et l'année qui ont été selectionné
+     * dans les comboBox à la vue saisieFrais
+     *
+     * @param evt
+     */
     private void clicSaisieFraisMensuel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clicSaisieFraisMensuel
         Object etuSelec = listeEtu.getSelectedItem();
         String mois = (String) listeMois.getSelectedItem();
-        Integer annee = (Integer)listeAnnee.getSelectedItem();
-        SaisieFrais saisie = new SaisieFrais(this, true, etuSelec,mois,annee.intValue());
+        Integer annee = (Integer) listeAnnee.getSelectedItem();
+        SaisieFrais saisie = new SaisieFrais(this, true, etuSelec, mois, annee.intValue());
         saisie.setVisible(true);
         saisie.setLocation(500, 400);
 
@@ -159,18 +165,23 @@ public class FraisEtudiant extends javax.swing.JFrame {
     private void retourMenu(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retourMenu
         this.dispose();
     }//GEN-LAST:event_retourMenu
-
+    /**
+     * Envoi le nom du de l'etudiant, le mois et l'année qui ont été selectionné
+     * dans les comboBox à la classe CreationFicheRembourssement
+     *
+     * @param evt
+     */
     private void editRF(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editRF
         JOptionPane res = null;
-        String title ="Validation Fiche Rembourssement";
-        String message="Cette étape validera la Fiche de rembourssement de frais pour le mois "
-                +listeMois.getSelectedItem().toString()+" de l'année "+listeAnnee.getSelectedItem().toString()+". Voulez-vous continuer?";
-        int reply=res.showConfirmDialog(null,message,title, JOptionPane.YES_NO_OPTION);
+        String title = "Validation Fiche Rembourssement";
+        String message = "Cette étape validera la Fiche de rembourssement de frais pour le mois "
+                + listeMois.getSelectedItem().toString() + " de l'année " + listeAnnee.getSelectedItem().toString() + ". Voulez-vous continuer?";
+        int reply = res.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
         String etudiant = listeEtu.getSelectedItem().toString();
         String mois = listeMois.getSelectedItem().toString();
-        int annee= Integer.parseInt(listeAnnee.getSelectedItem().toString());
-        if(reply==JOptionPane.YES_OPTION){
-            CreationFicheRemboursement ficheRemboursement = new CreationFicheRemboursement(etudiant,annee,mois);
+        int annee = Integer.parseInt(listeAnnee.getSelectedItem().toString());
+        if (reply == JOptionPane.YES_OPTION) {
+            new CreationFicheRemboursement(etudiant, annee, mois);
         }
     }//GEN-LAST:event_editRF
 

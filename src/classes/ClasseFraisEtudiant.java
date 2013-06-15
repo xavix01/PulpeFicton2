@@ -34,6 +34,12 @@ public class ClasseFraisEtudiant {
         return modelEtu;
     }
 
+    /**
+     * la liste de projet concernant l'etudiant passé en paramètre
+     *
+     * @param nomEtu
+     * @return Vector<Vector>
+     */
     public Vector recupereListeProjet(String nomEtu) {
         DAOFactory dAOFactory = new DAOFactory();
         Etudiant etudiant = new Etudiant();
@@ -42,16 +48,19 @@ public class ClasseFraisEtudiant {
         return daoProjet.getProjetParEtudiant(etudiant);
     }
 
-    public void ajoutFrais(String idProjet, String date, String deplacement,
-            String sejour, String autres) {
-        Frais frais = new Frais();
-        frais.setMontantAutres(Integer.parseInt(autres));
-        frais.setMontantDeplacement(Integer.parseInt(deplacement));
-        frais.setMontantSejour(Integer.parseInt(sejour));
-        frais.setIdProjet(Integer.parseInt(idProjet));
-
-    }
-
+    /**
+     * Enregistre dans un bean frais les paramètres. transmission de ce bean à
+     * la DAO
+     *
+     * @param idProjet
+     * @param nomEtu
+     * @param jour
+     * @param mois
+     * @param annee
+     * @param deplacement
+     * @param sejour
+     * @param autres
+     */
     public void ajoutFrais(String idProjet, String nomEtu, String jour,
             String mois, String annee, String deplacement, String sejour, String autres) {
         Frais frais = new Frais();

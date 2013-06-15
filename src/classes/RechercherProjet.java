@@ -26,6 +26,13 @@ public class RechercherProjet {
         projet = new Projet();
     }
 
+    /**
+     * Enregistre les informations passé en paramètre dans un bean projet. puis
+     * envoi les informations à la DAOParticipe
+     *
+     * @param idProjetSelectionne
+     * @return boolean
+     */
     public boolean aUneEquipe(String idProjetSelectionne) {
         DAOParticipe dAOParticipe = dAOFactory.getDAOParticipe();
         projet.setId_projet(Integer.parseInt(idProjetSelectionne));
@@ -35,6 +42,13 @@ public class RechercherProjet {
         return true;
     }
 
+    /**
+     * Enregistre les informations passé en paramètre dans un bean projet, puis
+     * les envois à la DAOProjet le nombre de jour de ce projet est calculé.
+     *
+     * @param idProjet
+     * @return int
+     */
     public int nbreJourTravailleProjet(String idProjet) {
         DAOProjet dAOProjet = dAOFactory.getDAOProjet();
         projet.setId_projet(Integer.parseInt(idProjet));
@@ -43,6 +57,13 @@ public class RechercherProjet {
 
     }
 
+    /**
+     * Enregistre les informations passé en paramètre dans un bean Client, puis
+     * l'envoi à la DAOProjet
+     *
+     * @param idClient
+     * @return Vector<Vector>
+     */
     public Vector projetClient(String idClient) {
         DAOProjet dAOProjet = dAOFactory.getDAOProjet();
         Client client = new Client();
@@ -52,6 +73,13 @@ public class RechercherProjet {
         return vector;
     }
 
+    /**
+     * Enregistre les informations passé en paramètre dans un bean Projet, puis
+     * l'envoi à la DAOEtudiant
+     *
+     * @param idprojet
+     * @return Vector<Vector>
+     */
     public Vector etudiantDuProjet(int idprojet) {
         DAOEtudiant daoEtudiant = dAOFactory.getDAOEtudiant();
         projet.setId_projet(idprojet);

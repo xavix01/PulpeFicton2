@@ -1,8 +1,5 @@
 package vue;
 
-import DAO.DAOEtudiant;
-import DAO.DAOFactory;
-import DAO.DAOProjet;
 import classes.ClasseFraisEtudiant;
 import java.awt.event.KeyEvent;
 import java.util.Vector;
@@ -259,13 +256,20 @@ public class SaisieFrais extends javax.swing.JDialog {
     private void retour(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retour
         this.dispose();
     }//GEN-LAST:event_retour
-
+/**
+ * recupère l'id de la convention selectionné puis l'affiche dans tableListeProjet
+ * @param evt 
+ */
     private void clickChoixProjet(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickChoixProjet
         int ligne = tablelisteProjet.getSelectedRow();
         convention.setText((String) tablelisteProjet.getValueAt(ligne, 2));
         verifChamp();
     }//GEN-LAST:event_clickChoixProjet
-
+/**
+ * Récupère la liste d'etudiant participant à un ou plusieurs projet 
+ * puis l'affiche dans la jTble tablelisteProjet
+ * @param evt 
+ */
     private void refresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refresh
         ClasseFraisEtudiant classeFrais = new ClasseFraisEtudiant();
         Vector vectorEtu = classeFrais.recupereListeProjet(etudiant.toString());
@@ -280,7 +284,10 @@ public class SaisieFrais extends javax.swing.JDialog {
 
     private void valider(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_valider
     }//GEN-LAST:event_valider
-
+/**
+ * Si le caractère entré n'est pas numérique, alors on ne fait rien (ne s'affiche pas)
+ * @param evt 
+ */
     private void verifdep(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_verifdep
         char t = evt.getKeyChar();
         if (!Character.isDigit(t)) {
@@ -288,7 +295,10 @@ public class SaisieFrais extends javax.swing.JDialog {
         }
         verifChamp();
     }//GEN-LAST:event_verifdep
-
+/**
+ * Si le caractère entré n'est pas numérique, alors on ne fait rien (ne s'affiche pas)
+ * @param evt 
+ */
     private void verifSej(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_verifSej
         char t = evt.getKeyChar();
         if (!Character.isDigit(t)) {
@@ -304,7 +314,10 @@ public class SaisieFrais extends javax.swing.JDialog {
         }
         verifChamp();
     }//GEN-LAST:event_verifAutre
-
+/**
+ * permet une validation de date
+ * @param evt 
+ */
     private void verifDate(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_verifDate
         char t = evt.getKeyChar();
         String mois = labelMois.getText();
@@ -362,7 +375,11 @@ public class SaisieFrais extends javax.swing.JDialog {
         }
         verifChamp();
     }//GEN-LAST:event_verifDate
-
+/**
+ * Récupère les champs entré, et les transmet à la méthode 
+ * ajoutFrais de la classe ClasseFraisEtudiant
+ * @param evt 
+ */
     private void pressBoutonValider(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pressBoutonValider
         ClasseFraisEtudiant classeFrais = new ClasseFraisEtudiant();
         String idprojet = (String) tablelisteProjet.getValueAt(tablelisteProjet.getSelectedRow(), 0);
@@ -378,7 +395,13 @@ public class SaisieFrais extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_pressBoutonValider
-
+/**
+ * Permet la vérification des champs, 
+ * si le jour n'est pas entré par l'utilisateur, alors le bouton validé est désactivé
+ * si la convention n'est pas selectionné par l'utilisateur, alors le bouton validé est désactivé
+ * si les champs déplacement,sejour,autres sont vide alors le bouton validé est désactivé;
+ * il faut au moins un des 3 champs remplis
+ */
     public void verifChamp() {
         boolean jourFilled = !textFieldJour.getText().isEmpty();
         boolean conventionFilled = !convention.getText().isEmpty();

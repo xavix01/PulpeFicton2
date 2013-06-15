@@ -1,4 +1,5 @@
 package vue;
+
 import beans.Client;
 
 import classes.CreationPdfConvention;
@@ -20,7 +21,6 @@ public class EditionConvention extends javax.swing.JFrame {
     Client client;
     RechercherProjet rechercherProjet;
     CreationProjet creationProjet;
-
     int idProjet;
 
     /**
@@ -28,10 +28,10 @@ public class EditionConvention extends javax.swing.JFrame {
      */
     public EditionConvention() {
         initComponents();
-        creationProjet=new CreationProjet();
+        creationProjet = new CreationProjet();
         client = new Client();
-        rechercherProjet=new RechercherProjet();
-        
+        rechercherProjet = new RechercherProjet();
+
     }
 
     /**
@@ -194,18 +194,24 @@ public class EditionConvention extends javax.swing.JFrame {
 
     private void retourMenu(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retourMenu
         this.dispose();
-        
-    }//GEN-LAST:event_retourMenu
 
+    }//GEN-LAST:event_retourMenu
+    /**
+     * Ouvre la fenetre rechercheClient puis récupère l'id du client en question
+     * afin de l'afficher dans le label consultNumClient fait ensuite appel à la
+     * méthode projetClient de la class rechercheProjet pour récupérer la liste
+     * des projets de ce client que l'on affiche ensuite dans la jtable
+     * tableAfficheProjet
+     *
+     * @param evt
+     */
     private void selectionClient(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectionClient
 
         new RechercheClient(this, true, client).setVisible(true);
 
-        
-        
-        editionConvNumClient.setText(String.valueOf(client.getId_client()));      
-        Vector vector=new Vector();
-        vector= rechercherProjet.projetClient(String.valueOf(client.getId_client()));
+        editionConvNumClient.setText(String.valueOf(client.getId_client()));
+        Vector vector = new Vector();
+        vector = rechercherProjet.projetClient(String.valueOf(client.getId_client()));
 
 
         Vector columnNames = new Vector();
@@ -220,21 +226,28 @@ public class EditionConvention extends javax.swing.JFrame {
         columnNames.add("Cout total du Projet");
 
         tableAfficheProjet.setModel(new DefaultTableModel(vector, columnNames));
-        
-    }//GEN-LAST:event_selectionClient
 
+    }//GEN-LAST:event_selectionClient
+    /**
+     * Récupère l'id du projet selectionné , on fait appel à la méthode
+     * aUnProjet de la classe rechercherProjet pour savoir si le projet à bien
+     * une équipe, si ce n'est pas le cas, le bouton valider convention reste
+     * désactivé
+     *
+     * @param evt
+     */
     private void selectionProjet(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectionProjet
         int ligneSelectionnee = tableAfficheProjet.getSelectedRow();
         idProjet = (int) tableAfficheProjet.getValueAt(ligneSelectionnee, 0);
         boolean reponse = rechercherProjet.aUneEquipe(String.valueOf(idProjet));
-        
-        
+
+
         Integer idconvention = (Integer) tableAfficheProjet.getValueAt(ligneSelectionnee, 3);
         editionConvProjetSelectionne.setText(String.valueOf(idProjet));
-        
-        if(reponse){
+
+        if (reponse) {
             equipe.setText("Equipe selectionnée");
-        }else{
+        } else {
             equipe.setText("Vous devez choisir une equipe avent la validation de convention");
         }
         if (idconvention == 0 && reponse) {
@@ -244,23 +257,31 @@ public class EditionConvention extends javax.swing.JFrame {
             editionConvAfficheNumConv.setText(String.valueOf(idconvention));
             validerEditionConv.setEnabled(false);
         }
-        
-        
-        if (idconvention>0&& reponse) {
+
+
+        if (idconvention > 0 && reponse) {
             imprimerConvention.setEnabled(true);
         } else {
             imprimerConvention.setEnabled(false);
         }
 
     }//GEN-LAST:event_selectionProjet
-
+    /**
+     * Envoi l'id du projet concerné à la méthode ajoutConvention de la classe
+     * CreationProjet on raffraichi le jTable tableAfficheProjet pour que le
+     * numéro de convention aparaisse;
+     * active le bouton edition convention et
+     * desactive le bouton valider convention
+     *
+     * @param evt
+     */
     private void boutonValiderConvention(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonValiderConvention
 
         int ligneSelectionnee = tableAfficheProjet.getSelectedRow();
         idProjet = (int) tableAfficheProjet.getValueAt(ligneSelectionnee, 0);
-        
-        int convention=creationProjet.ajoutConvention(idProjet,client);
-        
+
+        int convention = creationProjet.ajoutConvention(idProjet, client);
+
         Vector vector = new Vector();
         vector = rechercherProjet.projetClient(String.valueOf(client.getId_client()));
 
@@ -276,20 +297,18 @@ public class EditionConvention extends javax.swing.JFrame {
         columnNames.add("Cout total du Projet");
 
         tableAfficheProjet.setModel(new DefaultTableModel(vector, columnNames));
-        
-        
-        
         editionConvAfficheNumConv.setText(String.valueOf(convention));
-        
+
         validerEditionConv.setEnabled(false);
         imprimerConvention.setEnabled(true);
 
 
     }//GEN-LAST:event_boutonValiderConvention
-
+/**
+ * Envoi à la classe CreationPdfConvention l'id du projet à éditer en pdf
+ * @param evt 
+ */
     private void createPDF(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPDF
-        
-        
         new CreationPdfConvention(idProjet);
     }//GEN-LAST:event_createPDF
 

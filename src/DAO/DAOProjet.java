@@ -25,6 +25,11 @@ public class DAOProjet {
         this.factory = factory;
     }
 
+    /**
+     *
+     * @param projet
+     * @param client Insertion d'un nouveau projet dans la bdd
+     */
     public void addProjet(Projet projet, Client client) {
         try {
             Connection connection = factory.getConnection();
@@ -41,6 +46,11 @@ public class DAOProjet {
         }
     }
 
+    /**
+     *
+     * @param projet recherche d'un projet l'aide de son id(sans la liste
+     * d'etudiant concerné)
+     */
     public void getProjetParId(Projet projet) {
         try {
             Client client = new Client();
@@ -61,6 +71,11 @@ public class DAOProjet {
         }
     }
 
+    /**
+     *
+     * @param projet recherche des informations complete sur un projet(y compris
+     * la liste d'etudiant affecté)
+     */
     public void getProjetCompletPourConv(Projet projet) {
         Vector listeEtudiant = new Vector<>();
         try {
@@ -99,37 +114,12 @@ public class DAOProjet {
 
     }
 
-    public void getProjet() {
-        Vector listeProjet = new Vector<>();
-        int idEtu;
-        int idCli;
-        DAOFactory daoFactory = new DAOFactory();
-        DAOClient daoClient = daoFactory.getDAOClient();
-        DAOEtudiant daoEtudiant = daoFactory.getDAOEtudiant();
-        try {
-            Connection connection = factory.getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery("SELECT * FROM Projet");
-            while (result.next()) {
-                Projet projet = new Projet();
-                projet.setId_projet(result.getInt("idProjet"));
-                projet.setDate_fin_projet(result.getString("dateFinProjet"));
-                projet.setDuree_projet(result.getShort("dureeProjet"));
-                projet.setId_convention(result.getInt("idConvention"));
-                projet.setNom_projet(result.getString("nomProjet"));
-                projet.setPrix_journee(result.getInt("prixJournee"));
-                idCli = result.getInt("idClient");
-                idEtu = result.getInt("responsable");
-
-                projet.setClient(daoClient.getUnClient(idCli));
-                projet.setResponsable(daoEtudiant.getUnEtudiant(idEtu));
-                listeProjet.add(projet);
-            }
-        } catch (SQLException e) {
-            throw new DAO.DAOException(e.getSQLState());
-        }
-    }
-
+    /**
+     *
+     * @param idClient
+     * @return Vector retourne le nom des projets qui conerne le client passé en
+     * paramètre.
+     */
     public Vector getProjetParClient(int idClient) {
         Vector vector = new Vector<>();
         try {
@@ -148,6 +138,15 @@ public class DAOProjet {
         return vector;
     }
 
+    /**
+     *
+     * @param client
+     * @return Vector<Vector>
+     *
+     * retourne les informations complete pour la convention, des projets d'un
+     * client passé en paramètre.
+     *
+     */
     public Vector getProjetClientConsultation(Client client) {
         Vector vector2D = new Vector<>();
         try {
@@ -187,6 +186,14 @@ public class DAOProjet {
         return vector2D;
     }
 
+    /**
+     *
+     * @param idClient
+     * @return
+     *
+     * retourne les informations complete des projets d'un client passé en
+     * paramètre.
+     */
     public Vector getProjetParClient(String idClient) {
         Vector vector2D = new Vector<>();
         try {
@@ -212,6 +219,14 @@ public class DAOProjet {
         return vector2D;
     }
 
+    /**
+     *
+     * @param projet
+     * @return Vector<Vector>
+     *
+     * retourne une liste de projet ayant été recherché a l'aide des caratère
+     * entré par l'utilisateur
+     */
     public Vector getRechercheProjetParNom(Projet projet) {
         Vector vector2D = new Vector<>();
         try {
@@ -236,6 +251,10 @@ public class DAOProjet {
         return vector2D;
     }
 
+    /**
+     *
+     * @param projet ajoute l'id etudiant responsable dans la table projet
+     */
     public void setResponsableProjet(Projet projet) {
         try {
             Connection connection = factory.getConnection();
@@ -252,6 +271,11 @@ public class DAOProjet {
         }
     }
 
+    /**
+     *
+     * @param projet ajoute le numero de convention dans la bdd pour le projet
+     * passé en paramètre
+     */
     public void setConvention(Projet projet) {
         try {
             Connection connection = factory.getConnection();
@@ -272,6 +296,11 @@ public class DAOProjet {
         }
     }
 
+    /**
+     * Recherche les informations d'un projet
+     *
+     * @param projet
+     */
     public void infoProjet(Projet projet) {
         try {
             Connection connection = factory.getConnection();
@@ -288,15 +317,21 @@ public class DAOProjet {
         }
     }
 
+    /**
+     * Recherche la liste de projet concernant l'etudiant passé en paramètre
+     *
+     * @param etudiant
+     * @return Vector<Vector>
+     */
     public Vector getProjetParEtudiant(Etudiant etudiant) {
-        
+
         Vector vector2D = new Vector();
         try {
             Connection connection = factory.getConnection();
             Statement statement = connection.createStatement();
-            String requete = "SELECT * FROM Participe pa join Projet po on pa.idProjet=po.idProjet join Etudiant et on pa.idEtudiant=et.idEtudiant where nomEtudiant ='"+etudiant.getNomEtudiant()+"' and idConvention!=0;";
+            String requete = "SELECT * FROM Participe pa join Projet po on pa.idProjet=po.idProjet join Etudiant et on pa.idEtudiant=et.idEtudiant where nomEtudiant ='" + etudiant.getNomEtudiant() + "' and idConvention!=0;";
             ResultSet resultSet = statement.executeQuery(requete);
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 Vector vector1D = new Vector();
                 vector1D.add(String.valueOf(resultSet.getInt("idProjet")));
                 vector1D.add(String.valueOf(resultSet.getString("nomProjet")));
@@ -304,7 +339,6 @@ public class DAOProjet {
                 vector2D.add(vector1D);
             }
         } catch (Exception e) {
-            
         }
         return vector2D;
     }

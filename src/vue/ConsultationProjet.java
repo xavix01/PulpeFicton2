@@ -11,16 +11,16 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ConsultationProjet extends javax.swing.JFrame {
 
-    
     RechercherProjet rechercherProjet;
     Client client;
+
     /**
      * Creates new form ConsultationProjet
      */
     public ConsultationProjet() {
         initComponents();
-        rechercherProjet=new RechercherProjet();
-        client=new Client();
+        rechercherProjet = new RechercherProjet();
+        client = new Client();
     }
 
     /**
@@ -160,19 +160,30 @@ public class ConsultationProjet extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Permet de fermer la fenetre
+     *
+     * @param evt
+     */
     private void retourMenu(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retourMenu
         this.dispose();
     }//GEN-LAST:event_retourMenu
-
+    /**
+     * Ouvre la fenetre rechercheClient puis récupère l'id du client en question
+     * afin de l'afficher dans le label consultNumClient fait ensuite appel à la
+     * méthode projetClient de la class rechercheProjet pour récupérer la liste
+     * des projets de ce client que l'on affiche ensuite dans la jtable
+     * tableAfficheProjet
+     *
+     * @param evt
+     */
     private void boutonSelectionClient(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonSelectionClient
-        
-        
+
         new RechercheClient(this, true, client).setVisible(true);
-        
-        
-        consultNumClient.setText(String.valueOf(client.getId_client()));      
-        Vector vector=new Vector();
-        vector= rechercherProjet.projetClient(String.valueOf(client.getId_client()));
+
+        consultNumClient.setText(String.valueOf(client.getId_client()));
+        Vector vector = new Vector();
+        vector = rechercherProjet.projetClient(String.valueOf(client.getId_client()));
 
         Vector columnNames = new Vector();
         columnNames.add("numéro de projet");
@@ -184,24 +195,30 @@ public class ConsultationProjet extends javax.swing.JFrame {
         columnNames.add("Date de fin prévue");
         columnNames.add("prix journée");
         columnNames.add("Cout total du Projet");
-        
-        tableAfficheProjet.setModel(new DefaultTableModel(vector,columnNames));
-    }//GEN-LAST:event_boutonSelectionClient
 
+        tableAfficheProjet.setModel(new DefaultTableModel(vector, columnNames));
+    }//GEN-LAST:event_boutonSelectionClient
+    /**
+     * récupère l'id du projet selectionné et fait appel à la méthode
+     * etudiantDuProjet de la classe rechercherProjet pour récupérer la liste
+     * d'étudiant de ce projet
+     *
+     * @param evt
+     */
     private void afficheEtudiantProjet(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheEtudiantProjet
-        int ligneSelectionnee=tableAfficheProjet.getSelectedRow();
-        int idprojet=(Integer) tableAfficheProjet.getValueAt(ligneSelectionnee, 0);
-        
-        
+        int ligneSelectionnee = tableAfficheProjet.getSelectedRow();
+        int idprojet = (Integer) tableAfficheProjet.getValueAt(ligneSelectionnee, 0);
+
+
         Vector columnNames = new Vector();
         columnNames.add("numéro Etudiant");
         columnNames.add("Nom Etudiant");
         columnNames.add("Prenom Etudiant");
         columnNames.add("Date naissance");
         columnNames.add("Adresse");
-        
-        
-        tableEtudiantProjet.setModel(new DefaultTableModel(rechercherProjet.etudiantDuProjet(idprojet),columnNames));
+
+
+        tableEtudiantProjet.setModel(new DefaultTableModel(rechercherProjet.etudiantDuProjet(idprojet), columnNames));
     }//GEN-LAST:event_afficheEtudiantProjet
 
     /**

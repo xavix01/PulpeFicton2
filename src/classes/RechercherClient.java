@@ -21,6 +21,14 @@ public class RechercherClient {
     public RechercherClient() {
     }
 
+    /**
+     * Enregistre dans un bean CLient, les informations passé en paramètre, puis
+     * les envoie à la dao.
+     *
+     * @param idClient
+     * @param nomClient
+     * @return Vector<Vector>
+     */
     public Vector listeClientRecherhe(String idClient, String nomClient) {
         DAOFactory daoFactory = new DAOFactory();
         DAOClient daoClient = daoFactory.getDAOClient();

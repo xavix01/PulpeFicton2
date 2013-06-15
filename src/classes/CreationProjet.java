@@ -30,6 +30,16 @@ public class CreationProjet {
 
     }
 
+    /**
+     * Enregistre dans un bean projet, les informations passé en paramètre et
+     * les envoi à la dao
+     *
+     * @param idClient
+     * @param nomProjet
+     * @param dureeProjet
+     * @param dateFinPrevue
+     * @param prixJournee
+     */
     public void addProjet(String idClient, String nomProjet, String dureeProjet, String dateFinPrevue, String prixJournee) {
         DAOProjet daoProjet = daoFactory.getDAOProjet();
         client.setId_client(Integer.parseInt(idClient));
@@ -40,6 +50,15 @@ public class CreationProjet {
         daoProjet.addProjet(projet, client);
     }
 
+    /**
+     * Enregistre dans un bean projet, les informations passé en paramètre et
+     * les envoi à la dao pour ajouter l'id du responsable dans la table projet
+     *
+     * @param model
+     * @param idResponsable
+     * @param idProjet
+     * @return boolean
+     */
     public boolean ajoutEquipe(TableModel model, String idResponsable, String idProjet) {
         DAOParticipe daoPraticipe = daoFactory.getDAOParticipe();
         DAOProjet daoProjet = daoFactory.getDAOProjet();
@@ -59,6 +78,14 @@ public class CreationProjet {
         return false;
     }
 
+    /**
+     * Enregistre dans un bean projet, les informations passé en paramètre et
+     * les envoi à la dao pour ajouter l'id Convention dans la table projet
+     *
+     * @param idProjet
+     * @param client
+     * @return
+     */
     public int ajoutConvention(int idProjet, Client client) {
         DAOProjet daoProjet = daoFactory.getDAOProjet();
         projet.setClient(client);

@@ -59,11 +59,16 @@ public class NouveauProjet extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Durée du Projet :");
+        jLabel3.setText("Durée du Projet  (en semaine):");
 
         dureeProjet.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 activerBouton2(evt);
+            }
+        });
+        dureeProjet.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                keytypedDuree(evt);
             }
         });
 
@@ -85,6 +90,11 @@ public class NouveauProjet extends javax.swing.JFrame {
         prixJournee.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 activerBouton4(evt);
+            }
+        });
+        prixJournee.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                keytypedPrixJ(evt);
             }
         });
 
@@ -187,20 +197,20 @@ public class NouveauProjet extends javax.swing.JFrame {
     private void retourMenu(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retourMenu
         this.dispose();
     }//GEN-LAST:event_retourMenu
-
+/**
+ * Ouvre la fenetre de recherche de client
+ * @param evt 
+ */
     private void rechercheClient(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rechercheClient
-
-
         new RechercheClient(this, true, client).setVisible(true);
-
-
         clientSelectionne.setText(String.valueOf(client.getId_client()));
         verifBouton();
     }//GEN-LAST:event_rechercheClient
-
+/**
+ * Envoi à la méthode addProjet de la classe CreationProjet , les informations entré par l'utilisateur
+ * @param evt 
+ */
     private void valider(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valider
-
-
         JOptionPane res = null;
         try {
             new CreationProjet().addProjet(clientSelectionne.getText(), nomProjet.getText(), dureeProjet.getText(), dateFinPrevue.getText(), prixJournee.getText());
@@ -210,7 +220,10 @@ public class NouveauProjet extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_valider
 
-    // permet une validation de date
+    /**
+     * permet une validation de date JJ/MM/AAAA
+     * @param evt 
+     */
     private void keyTypeDate(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_keyTypeDate
         char t = evt.getKeyChar();
         if (t == KeyEvent.VK_BACK_SPACE && date.length() != 0) {
@@ -265,8 +278,27 @@ public class NouveauProjet extends javax.swing.JFrame {
         verifBouton();
     }//GEN-LAST:event_activerBouton4
 
-    // Si les champs sont tous rempli alors le bouton "Valider" est activé
-    // sinon on le désactive
+    private void keytypedDuree(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_keytypedDuree
+        char t = evt.getKeyChar();
+        if (!Character.isDigit(t)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_keytypedDuree
+/**
+ * Si le caractère entré n'est pas numérique, alors on ne fait rien (ne s'affiche pas)
+ * @param evt 
+ */
+    private void keytypedPrixJ(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_keytypedPrixJ
+        char t = evt.getKeyChar();
+        if (!Character.isDigit(t)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_keytypedPrixJ
+
+    /**
+     * Si les champs sont tous rempli alors le bouton "Valider" est activé
+     * sinon on le désactive
+     */
     private void verifBouton() {
         if ((!nomProjet.getText().isEmpty() && !dateFinPrevue.getText().isEmpty()
                 && !dureeProjet.getText().isEmpty() && !prixJournee.getText().isEmpty()
