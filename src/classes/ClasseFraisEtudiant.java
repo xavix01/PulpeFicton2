@@ -49,7 +49,7 @@ public class ClasseFraisEtudiant {
     }
 
     /**
-     * Enregistre dans un bean frais les paramètres. transmission de ce bean à
+     * Enregistre dans un bean frais les paramètres; transmission de ce bean à
      * la DAO
      *
      * @param idProjet

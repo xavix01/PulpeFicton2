@@ -29,10 +29,11 @@ public class DAOEtudiant {
     }
 
     /**
-     *
-     * @return Vector<Etudiant>
      * Recherche de tous les Etudiants (Infos détaillé sur cet étudiant) sur la
      * Bdd.
+     *
+     * @return Vector<Etudiant>
+     *
      */
     public Vector getEtudiant() {
         Vector listeEtudiant = new Vector<>();
@@ -58,11 +59,12 @@ public class DAOEtudiant {
     }
 
     /**
+     * L'étudiant passé en paramètre contient uniquement l'idEtudiant. Recherche
+     * dans la base des informations sur cet etudiant.
      *
      * @param etudiant
      *
-     * L'étudiant passé en paramètre contient uniquement l'idEtudiant. Recherche
-     * dans la base des informations sur cet etudiant.
+     *
      */
     public void getUnEtudiant(Etudiant etudiant) {
         try {
@@ -84,9 +86,10 @@ public class DAOEtudiant {
     }
 
     /**
+     * Recupère seulement le nom et l'id de tout les étudiants.
      *
      * @return Vector<Vetor>
-     * Recupère seulement le nom et l'id de tout les étudiants.
+     *
      */
     public Vector getVectorEtudiant() {
         Vector listeEtudiant2D = new Vector<>();
@@ -109,11 +112,12 @@ public class DAOEtudiant {
     }
 
     /**
+     * Informations détaillées de tous les Etudiants d'un projet donné
      *
      * @param projet
      * @return Vector <Vector>
      *
-     * Informations détaillées de tous les Etudiants d'un projet donné
+     *
      */
     public Vector getEtudiantProjet(Projet projet) {
         Vector vector2D = new Vector();
@@ -142,8 +146,9 @@ public class DAOEtudiant {
     }
 
     /**
+     * Insertion de nouveau frais dans la table frais.
      *
-     * @param frais Insertion de nouveau frais dans la table frais.
+     * @param frais
      */
     public void addFees(Frais frais) {
         try {
@@ -166,12 +171,14 @@ public class DAOEtudiant {
 
     /**
      *
+     * La classe frais passé en paramètre contient uniquement le mois, l'année
+     * et l'id de l'étudiant; Une liste de tous les frais pour cet etudiant
+     * ayant ces date; une nouvelle fiche de remboursement est inséré.
+     *
      * @param frais
      * @return Vector<Vector>
-     * 
-     * La classe frais passé en paramètre contient uniquement le mois, l'année et l'id de 
-     * l'étudiant. Une liste de tous les frais pour cet etudiant ayant ces date.
-     * une nouvelle fiche de remboursement est inséré.
+     *
+     *
      */
     public Vector searchExpenses(Frais frais) {
         Vector vectorEtu = new Vector();

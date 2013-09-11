@@ -26,9 +26,10 @@ public class DAOProjet {
     }
 
     /**
+     * Insertion d'un nouveau projet dans la bdd
      *
      * @param projet
-     * @param client Insertion d'un nouveau projet dans la bdd
+     * @param client
      */
     public void addProjet(Projet projet, Client client) {
         try {
@@ -47,9 +48,9 @@ public class DAOProjet {
     }
 
     /**
+     * recherche d'un projet l'aide de son id(sans la liste d'etudiant concerné)
      *
-     * @param projet recherche d'un projet l'aide de son id(sans la liste
-     * d'etudiant concerné)
+     * @param projet
      */
     public void getProjetParId(Projet projet) {
         try {
@@ -72,9 +73,10 @@ public class DAOProjet {
     }
 
     /**
+     * recherche des informations complete sur un projet(y compris la liste
+     * d'etudiant affecté)
      *
-     * @param projet recherche des informations complete sur un projet(y compris
-     * la liste d'etudiant affecté)
+     * @param projet
      */
     public void getProjetCompletPourConv(Projet projet) {
         Vector listeEtudiant = new Vector<>();
@@ -115,10 +117,10 @@ public class DAOProjet {
     }
 
     /**
+     * retourne le nom des projets qui conerne le client passé en paramètre.
      *
      * @param idClient
-     * @return Vector retourne le nom des projets qui conerne le client passé en
-     * paramètre.
+     * @return Vector
      */
     public Vector getProjetParClient(int idClient) {
         Vector vector = new Vector<>();
@@ -139,12 +141,13 @@ public class DAOProjet {
     }
 
     /**
+     * retourne les informations complete pour la convention, des projets d'un
+     * client passé en paramètre.
      *
      * @param client
      * @return Vector<Vector>
      *
-     * retourne les informations complete pour la convention, des projets d'un
-     * client passé en paramètre.
+     *
      *
      */
     public Vector getProjetClientConsultation(Client client) {
@@ -187,12 +190,13 @@ public class DAOProjet {
     }
 
     /**
+     * retourne les informations complete des projets d'un client passé en
+     * paramètre.
      *
      * @param idClient
      * @return
      *
-     * retourne les informations complete des projets d'un client passé en
-     * paramètre.
+     *
      */
     public Vector getProjetParClient(String idClient) {
         Vector vector2D = new Vector<>();
@@ -220,12 +224,13 @@ public class DAOProjet {
     }
 
     /**
+     * retourne une liste de projet ayant été recherché a l'aide des caratère
+     * entré par l'utilisateur
      *
      * @param projet
      * @return Vector<Vector>
      *
-     * retourne une liste de projet ayant été recherché a l'aide des caratère
-     * entré par l'utilisateur
+     *
      */
     public Vector getRechercheProjetParNom(Projet projet) {
         Vector vector2D = new Vector<>();
@@ -252,8 +257,9 @@ public class DAOProjet {
     }
 
     /**
+     * ajoute l'id etudiant responsable dans la table projet
      *
-     * @param projet ajoute l'id etudiant responsable dans la table projet
+     * @param projet
      */
     public void setResponsableProjet(Projet projet) {
         try {
@@ -272,9 +278,10 @@ public class DAOProjet {
     }
 
     /**
+     * ajoute le numero de convention dans la bdd pour le projet passé en
+     * paramètre
      *
-     * @param projet ajoute le numero de convention dans la bdd pour le projet
-     * passé en paramètre
+     * @param projet
      */
     public void setConvention(Projet projet) {
         try {
